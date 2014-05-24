@@ -1,0 +1,55 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#0099cc"
+    tools:context="com.JoshCorp.sheepshead.PlayingActivity">
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="132dp"
+        android:layout_gravity="center_horizontal|bottom">
+
+        <ImageButton
+            android:onClick="getCard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageButton1"
+            android:layout_gravity="center_horizontal|bottom"
+            android:clickable="false"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
+            android:background="@drawable/b1fv"
+            android:minWidth="75dp"
+            android:minHeight="200dp" />
+        <ImageButton
+            android:onClick="getCard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageButton2"
+            android:layout_gravity="center_horizontal|bottom"
+            android:clickable="false"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
+            android:background="@drawable/b1fv"
+            android:minWidth="75dp"
+            android:minHeight="200dp"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/imageButton1" />
+        <ImageButton
+            android:onClick="getCard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageButton3"
+            android:layout_gravity="center_horizontal|bottom"
+            android:clickable="false"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
+            android:background="@drawable/b1fv"
+            android:minWidth="75dp"
+            android:minHeight="200dp"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/imageButton2" />
+    </RelativeLayout>
+
+</FrameLayout>
