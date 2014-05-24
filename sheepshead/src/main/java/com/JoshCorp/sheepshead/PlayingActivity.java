@@ -2,6 +2,8 @@ package com.JoshCorp.sheepshead;
 
 import android.app.ActionBar;
 import android.content.Intent;
+import android.graphics.Color;
+import android.media.Image;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
@@ -11,6 +13,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 
@@ -55,11 +58,17 @@ public class PlayingActivity extends ActionBarActivity {
 
     public void getCard(View view) {
         //set the card that was just played
-        ImageView card = (ImageView)findViewById(R.id.playerPlayed);
-        card.setBackground(view.getBackground());
+        //set picture
+        ImageView image = (ImageView)findViewById(R.id.playerPlayed);
+        image.setBackground(view.getBackground());
+        //move card object
+        Card card = (Card)view.getTag();
 
-        //display new card
-        view.setBackgroundResource(cardDeck[randy.nextInt(cardDeck.length)]);
+        //clear image background
+        view.setBackgroundColor(Color.TRANSPARENT);
+
+        //displayed random new card
+//        view.setBackgroundResource(cardDeck[randy.nextInt(cardDeck.length)]);
     }
 
     @Override
@@ -68,9 +77,20 @@ public class PlayingActivity extends ActionBarActivity {
         ActionBar actionBar = getActionBar();
         actionBar.hide();
         setContentView(R.layout.activity_playing);
+        //set player name in textbox
         Intent intent = getIntent();
         String message = intent.getStringExtra(WelcomeScreenActivity.PLAYER_NAME);
         TextView playerName = (TextView)findViewById(R.id.PlayerName);
         playerName.setText(message);
+
+        //TODO: Add the cards programmatically
+        //create a deck and deal cards
+        Deck deck = new Deck();
+        for(int i=1;i<=10;i++){
+            Card card = deck.draw();
+            ImageButton image = (ImageButton)findViewById(getResources().getIdentifier("imageButton" + i , "id", getPackageName()));
+            image.setTag(card);
+            image.setBackgroundResource(getResources().getIdentifier(card.getResource() , "drawable", getPackageName()));
+        }
     }
 }
