@@ -7,155 +7,218 @@
 
     <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="132dp"
+        android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal|bottom">
 
-        <ImageButton
-            android:onClick="getCard"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/imageButton1"
-            android:layout_gravity="center_horizontal|bottom"
-            android:clickable="false"
-            android:adjustViewBounds="true"
-            android:scaleType="fitCenter"
-            android:background="@drawable/b1fv"
-            android:minWidth="75dp"
-            android:minHeight="200dp" />
-        <ImageButton
-            android:onClick="getCard"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/imageButton2"
-            android:layout_gravity="center_horizontal|bottom"
-            android:clickable="false"
-            android:adjustViewBounds="true"
-            android:scaleType="fitCenter"
-            android:background="@drawable/b1fv"
-            android:minWidth="75dp"
-            android:minHeight="200dp"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginLeft="38dp" />
-        <ImageButton
-            android:onClick="getCard"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/imageButton3"
-            android:layout_gravity="center_horizontal|bottom"
-            android:clickable="false"
-            android:adjustViewBounds="true"
-            android:scaleType="fitCenter"
-            android:background="@drawable/b1fv"
-            android:minWidth="75dp"
-            android:minHeight="200dp"
-            android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/imageButton1" />
-        <ImageButton
-            android:onClick="getCard"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/imageButton4"
-            android:layout_gravity="center_horizontal|bottom"
-            android:clickable="false"
-            android:adjustViewBounds="true"
-            android:scaleType="fitCenter"
-            android:background="@drawable/b1fv"
-            android:minWidth="75dp"
-            android:minHeight="200dp"
-            android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/imageButton2" />
-        <ImageButton
-            android:onClick="getCard"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/imageButton5"
-            android:layout_gravity="center_horizontal|bottom"
-            android:clickable="false"
-            android:adjustViewBounds="true"
-            android:scaleType="fitCenter"
-            android:background="@drawable/b1fv"
-            android:minWidth="75dp"
-            android:minHeight="200dp"
-            android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/imageButton3" />
+    <ImageButton
+        android:onClick="getCard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageButton1"
+        android:layout_gravity="center_horizontal|bottom"
+        android:clickable="false"
+        android:adjustViewBounds="true"
+        android:scaleType="fitCenter"
+        android:background="@drawable/b1fv"
+        android:minWidth="75dp"
+        android:minHeight="100dp"
+        android:layout_centerVertical="true" />
+    <ImageButton
+        android:onClick="getCard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageButton2"
+        android:layout_gravity="center_horizontal|bottom"
+        android:clickable="false"
+        android:adjustViewBounds="true"
+        android:scaleType="fitCenter"
+        android:background="@drawable/b1fv"
+        android:minWidth="75dp"
+        android:minHeight="100dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="38dp"
+        android:layout_centerVertical="true" />
+    <ImageButton
+        android:onClick="getCard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageButton3"
+        android:layout_gravity="center_horizontal|bottom"
+        android:clickable="false"
+        android:adjustViewBounds="true"
+        android:scaleType="fitCenter"
+        android:background="@drawable/b1fv"
+        android:minWidth="75dp"
+        android:minHeight="100dp"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/imageButton1"
+        android:layout_centerVertical="true" />
+    <ImageButton
+        android:onClick="getCard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageButton4"
+        android:layout_gravity="center_horizontal|bottom"
+        android:clickable="false"
+        android:adjustViewBounds="true"
+        android:scaleType="fitCenter"
+        android:background="@drawable/b1fv"
+        android:minWidth="75dp"
+        android:minHeight="100dp"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/imageButton2"
+        android:layout_centerVertical="true" />
+    <ImageButton
+        android:onClick="getCard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageButton5"
+        android:layout_gravity="center_horizontal|bottom"
+        android:clickable="false"
+        android:adjustViewBounds="true"
+        android:scaleType="fitCenter"
+        android:background="@drawable/b1fv"
+        android:minWidth="75dp"
+        android:minHeight="100dp"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/imageButton3"
+        android:layout_centerVertical="true" />
 
-        <ImageButton
-            android:onClick="getCard"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/imageButton6"
-            android:layout_gravity="center_horizontal|bottom"
-            android:clickable="false"
-            android:adjustViewBounds="true"
-            android:scaleType="fitCenter"
-            android:background="@drawable/b1fv"
-            android:minWidth="75dp"
-            android:minHeight="200dp"
-            android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/imageButton4" />
+    <ImageButton
+        android:onClick="getCard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageButton6"
+        android:layout_gravity="center_horizontal|bottom"
+        android:clickable="false"
+        android:adjustViewBounds="true"
+        android:scaleType="fitCenter"
+        android:background="@drawable/b1fv"
+        android:minWidth="75dp"
+        android:minHeight="100dp"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/imageButton4" />
 
-        <ImageButton
-            android:onClick="getCard"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/imageButton7"
-            android:layout_gravity="center_horizontal|bottom"
-            android:clickable="false"
-            android:adjustViewBounds="true"
-            android:scaleType="fitCenter"
-            android:background="@drawable/b1fv"
-            android:minWidth="75dp"
-            android:minHeight="200dp"
-            android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/imageButton5" />
+    <ImageButton
+        android:onClick="getCard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageButton7"
+        android:layout_gravity="center_horizontal|bottom"
+        android:clickable="false"
+        android:adjustViewBounds="true"
+        android:scaleType="fitCenter"
+        android:background="@drawable/b1fv"
+        android:minWidth="75dp"
+        android:minHeight="100dp"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/imageButton5"
+        android:layout_centerVertical="true" />
 
-        <ImageButton
-            android:onClick="getCard"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/imageButton8"
-            android:layout_gravity="center_horizontal|bottom"
-            android:clickable="false"
-            android:adjustViewBounds="true"
-            android:scaleType="fitCenter"
-            android:background="@drawable/b1fv"
-            android:minWidth="75dp"
-            android:minHeight="200dp"
-            android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/imageButton6" />
+    <ImageButton
+        android:onClick="getCard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageButton8"
+        android:layout_gravity="center_horizontal|bottom"
+        android:clickable="false"
+        android:adjustViewBounds="true"
+        android:scaleType="fitCenter"
+        android:background="@drawable/b1fv"
+        android:minWidth="75dp"
+        android:minHeight="100dp"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/imageButton6" />
 
-        <ImageButton
-            android:onClick="getCard"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/imageButton9"
-            android:layout_gravity="center_horizontal|bottom"
-            android:clickable="false"
-            android:adjustViewBounds="true"
-            android:scaleType="fitCenter"
-            android:background="@drawable/b1fv"
-            android:minWidth="75dp"
-            android:minHeight="200dp"
-            android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/imageButton7" />
+    <ImageButton
+        android:onClick="getCard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageButton9"
+        android:layout_gravity="center_horizontal|bottom"
+        android:clickable="false"
+        android:adjustViewBounds="true"
+        android:scaleType="fitCenter"
+        android:background="@drawable/b1fv"
+        android:minWidth="75dp"
+        android:minHeight="100dp"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/imageButton7" />
 
-        <ImageButton
-            android:onClick="getCard"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/imageButton10"
-            android:layout_gravity="center_horizontal|bottom"
-            android:clickable="false"
-            android:adjustViewBounds="true"
-            android:scaleType="fitCenter"
-            android:background="@drawable/b1fv"
-            android:minWidth="75dp"
-            android:minHeight="200dp"
-            android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/imageButton8"
-            android:cropToPadding="false" />
+    <ImageButton
+        android:onClick="getCard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageButton10"
+        android:layout_gravity="center_horizontal|bottom"
+        android:clickable="false"
+        android:adjustViewBounds="true"
+        android:scaleType="fitCenter"
+        android:background="@drawable/b1fv"
+        android:minWidth="75dp"
+        android:minHeight="100dp"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/imageButton8"
+        android:cropToPadding="false" />
     </RelativeLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Josh"
+        android:id="@+id/PlayerName"
+        android:layout_gravity="center"
+        android:hint="PlayerName"
+        android:textSize="25dp"
+        android:textIsSelectable="true"
+        android:textAlignment="gravity"
+        android:editable="false"
+        android:enabled="false"
+        android:gravity="center_horizontal" />
+
+    <TableLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|top">
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageView"
+                android:background="@drawable/b1fh"
+                android:minWidth="100dp"
+                android:minHeight="75dp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageView2"
+                android:background="@drawable/b1fh"
+                android:minWidth="100dp"
+                android:minHeight="75dp" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageView3"
+                android:background="@drawable/b1fv"
+                android:minWidth="75dp"
+                android:minHeight="100dp"
+                android:layout_gravity="center_horizontal"
+                android:textAlignment="center"
+                android:layout_span="2" />
+        </TableRow>
+    </TableLayout>
 
 </FrameLayout>
