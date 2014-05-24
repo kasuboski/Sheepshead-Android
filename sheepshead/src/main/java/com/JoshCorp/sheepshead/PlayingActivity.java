@@ -7,6 +7,8 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.Random;
@@ -52,9 +54,12 @@ public class PlayingActivity extends ActionBarActivity {
     private final static Random randy = new Random();
 
     public void getCard(View view) {
+        //set the card that was just played
+        ImageView card = (ImageView)findViewById(R.id.playerPlayed);
+        card.setBackground(view.getBackground());
+
+        //display new card
         view.setBackgroundResource(cardDeck[randy.nextInt(cardDeck.length)]);
-//        ImageButton card = (ImageButton)findViewById(view.getId());
-//        card.setBackgroundResource(cardDeck[randy.nextInt(cardDeck.length)]);
     }
 
     @Override

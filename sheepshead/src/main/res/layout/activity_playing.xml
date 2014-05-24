@@ -171,12 +171,13 @@
         android:id="@+id/PlayerName"
         android:layout_gravity="center"
         android:hint="PlayerName"
-        android:textSize="25dp"
+        android:textSize="25sp"
         android:textIsSelectable="true"
         android:textAlignment="gravity"
         android:editable="false"
         android:enabled="false"
-        android:gravity="center_horizontal" />
+        android:gravity="center_horizontal"
+        android:layout_marginTop="35dp" />
 
     <TableLayout
         android:layout_width="wrap_content"
@@ -190,7 +191,7 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/imageView"
+                android:id="@+id/leftPlayed"
                 android:background="@drawable/b1fh"
                 android:minWidth="100dp"
                 android:minHeight="75dp" />
@@ -198,7 +199,7 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/imageView2"
+                android:id="@+id/rightPlayed"
                 android:background="@drawable/b1fh"
                 android:minWidth="100dp"
                 android:minHeight="75dp" />
@@ -206,18 +207,19 @@
 
         <TableRow
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
+            android:layout_height="fill_parent"
+            android:layout_column="2">
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/imageView3"
-                android:background="@drawable/b1fv"
-                android:minWidth="75dp"
-                android:minHeight="100dp"
-                android:layout_gravity="center_horizontal"
-                android:textAlignment="center"
-                android:layout_span="2" />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/playerPlayed"
+                    android:background="@drawable/b1fv"
+                    android:minWidth="75dp"
+                    android:minHeight="100dp"
+                    android:layout_gravity="center_horizontal"
+                    android:textAlignment="center"
+                    android:layout_span="2" />
         </TableRow>
     </TableLayout>
 
