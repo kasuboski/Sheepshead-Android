@@ -28,9 +28,7 @@ public class PlayingActivity extends ActionBarActivity {
         //move card object
         Card card = (Card)view.getTag();
         hand.remove(card);
-        System.out.println("Removed: " + card);
-        //remove imageButton of card
-//        ((ViewManager)view.getParent()).removeView(view);
+//        System.out.println("Removed: " + card);
 
         updateCards((ArrayList<Card>)hand.clone());
 
@@ -60,16 +58,15 @@ public class PlayingActivity extends ActionBarActivity {
             hand.add(deck.draw());
         }
         Collections.sort(hand);
-       updateCards((ArrayList<Card>)hand.clone());
+        updateCards((ArrayList<Card>)hand.clone());
     }
     private void updateCards(ArrayList<Card> cards){
         //get the layout
         RelativeLayout layout = (RelativeLayout)findViewById(R.id.handContainer);
         layout.removeAllViewsInLayout();
         for(int i=1;i<=cards.size();i++){
-            System.out.println(i);
             Card card = cards.get(i-1);
-            System.out.println("Added: " + card);
+//            System.out.println("Added: " + card);
             ImageButton image = new ImageButton(this);
             RelativeLayout.LayoutParams params =
                     new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,
