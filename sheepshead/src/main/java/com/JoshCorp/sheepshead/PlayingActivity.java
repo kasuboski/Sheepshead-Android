@@ -1,6 +1,7 @@
 package com.JoshCorp.sheepshead;
 
 import android.app.ActionBar;
+import android.app.DialogFragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -11,26 +12,41 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Random;
 
 
-public class PlayingActivity extends ActionBarActivity {
+public class PlayingActivity extends ActionBarActivity implements Table.UIListener, NoticeDialogFragment.NoticeDialogListener {
 
-    private ArrayList<Player> players = new ArrayList<Player>();
+    private Table table;
+    public static enum State {DEALING, PICKING, PLAYER, COMP, WAIT};
     private final static Random randy = new Random();
+    public static State state;
 
     public void getCard(View view) {
+        switch(state) {
+            case DEALING:
+            case COMP:
+                break;
+            case PICKING:
+                if(table.getPlayers().get(0).isPicker()) {
+                    Card card = (Card)view.getTag();
+                    table.getPlayers().get(0).bury(card);
+
+                }
+                break;
+            default:
+                break;
+
+        }
         //set the card that was just played
         //set picture
-        ImageView image = (ImageView)findViewById(R.id.playerPlayed);
-        image.setBackground(view.getBackground());
+//        ImageView image = (ImageView)findViewById(R.id.playerPlayed);
+//        image.setBackground(view.getBackground());
         //move card object
-        Card card = (Card)view.getTag();
-        players.get(0).removeCard(card);
+
 //        System.out.println("Removed: " + card);
 
-        updateCards((ArrayList<Card>) players.get(0).getHand().clone());
+        updateCards((ArrayList<Card>) table.getPlayers().get(0).getHand().clone());
 
         //displayed random new card
 //        view.setBackgroundResource(cardDeck[randy.nextInt(cardDeck.length)]);
@@ -48,20 +64,16 @@ public class PlayingActivity extends ActionBarActivity {
         TextView playerName = (TextView)findViewById(R.id.PlayerName);
         playerName.setText(message);
 
-        //add the players
-        players.add(new Player(true));
+        //create the players
+        ArrayList<Player> p = new ArrayList<Player>();
+        p.add(new Player(true, message));
+        p.add(new Player(false, "Bill"));
+        p.add(new Player(false, "Bob"));
 
-        //create a deck and deal cards
-        Deck deck = new Deck();
-        for(Player player : players) {
-            for (int i = 0; i < 10; i++) {
-                player.addCard(deck.draw());
-            }
-            Collections.sort(player.getHand());
-        }
-        updateCards((ArrayList<Card>) players.get(0).getHand().clone());
+        //create the table from the players and the game begins
+        table = new Table(this, p);
     }
-    private void updateCards(ArrayList<Card> cards){
+    public void updateCards(ArrayList<Card> cards){
         //get the layout
         RelativeLayout layout = (RelativeLayout)findViewById(R.id.handContainer);
         layout.removeAllViewsInLayout();
@@ -98,5 +110,41 @@ public class PlayingActivity extends ActionBarActivity {
             image.setBackgroundResource(getResources().getIdentifier(card.getResource() , "drawable", getPackageName()));
             layout.addView(image);
         }
+    }
+
+    public void playerTurn() {
+        TextView messageBox = (TextView) findViewById(R.id.PlayerName);
+        messageBox.setText("Your Turn");
+    }
+
+    public void playerPick(Player player) {
+        TextView messageBox = (TextView) findViewById(R.id.PlayerName);
+        if(player.isPlayer()) {
+            messageBox.setText("Select the cards to bury.");
+        }
+        else {
+            messageBox.setText(player.getName() + " picked");
+        }
+    }
+
+    public void toPick() {
+        // Create an instance of the dialog fragment and show it
+        DialogFragment dialog = new NoticeDialogFragment();
+        dialog.show(getFragmentManager(), "toPick");
+    }
+
+    // The dialog fragment receives a reference to this Activity through the
+    // Fragment.onAttach() callback, which it uses to call the following methods
+    // defined by the NoticeDialogFragment.NoticeDialogListener interface
+    @Override
+    public void onDialogPositiveClick(DialogFragment dialog) {
+        // User touched the dialog's positive button
+        table.pick(true);
+    }
+
+    @Override
+    public void onDialogNegativeClick(DialogFragment dialog) {
+        // User touched the dialog's negative button
+        table.pick(false);
     }
 }

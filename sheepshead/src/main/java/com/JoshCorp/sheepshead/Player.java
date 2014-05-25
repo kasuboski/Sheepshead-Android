@@ -12,9 +12,11 @@ public class Player {
     private ArrayList<Card> hand = new ArrayList<Card>(10);
     private boolean isPlayer;
     private boolean isPicker;
+    private String name;
 
-    public Player(boolean isPlayer) {
+    public Player(boolean isPlayer, String name) {
         this.isPlayer = isPlayer;
+        this.name = name;
         this.score = 0;
         this.points = 0;
     }
@@ -88,6 +90,7 @@ public class Player {
         }
         return true;
     }
+
     public void addCard(Card card) {
         card.setOwner(this);
         hand.add(card);
@@ -95,6 +98,20 @@ public class Player {
 
     public void removeCard(Card card) {
         hand.remove(card);
+    }
+
+    public void bury() {
+        points += getLowCard().getPoints();
+        points += getLowCard().getPoints();
+        PlayingActivity.state = PlayingActivity.State.WAIT;
+    }
+
+    public void bury(Card card) {
+        points += card.getPoints();
+        removeCard(card);
+        if(hand.size() == 10) {
+            PlayingActivity.state = PlayingActivity.State.WAIT;
+        }
     }
 
     /**
@@ -118,6 +135,10 @@ public class Player {
         removeCard(card);
         return card;
     }
+
+    public void addCards(ArrayList<Card> cards) {
+        hand.addAll(cards);
+    }
     public ArrayList<Card> getHand() {
         return hand;
     }
@@ -136,6 +157,10 @@ public class Player {
 
     public int getPoints() {
         return points;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public boolean isPlayer() {

@@ -5,5 +5,6 @@
     <string name="welcome">Welcome to Sheepshead</string>
     <string name="title_activity_playing">Playing Sheepshead</string>
     <string name="action_settings">Settings</string>
+    <string name="toPick">Would you like to pick?</string>
 
 </resources>
