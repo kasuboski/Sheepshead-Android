@@ -10,6 +10,7 @@ public class Card implements Comparable<Card> {
     private int points,rank;
     private String identifier;
     private String resource;
+    private Player owner;
 
     public Card(String ident, Suit suit, int points, int rank, String resource){
         this.identifier = ident;
@@ -48,6 +49,17 @@ public class Card implements Comparable<Card> {
         return resource;
     }
 
+    public Player getOwner() {
+        return owner;
+    }
+
+    public void setOwner(Player owner) {
+        this.owner = owner;
+    }
+
+    public boolean isTrump(){
+        return rank >= 7;
+    }
     @Override
     public String toString(){
         return this.getIdentifier() + " of " + this.getSuit();

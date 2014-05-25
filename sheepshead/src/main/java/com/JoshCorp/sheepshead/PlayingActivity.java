@@ -17,7 +17,7 @@ import java.util.Random;
 
 public class PlayingActivity extends ActionBarActivity {
 
-    private ArrayList<Card> hand = new ArrayList<Card>(10);
+    private ArrayList<Player> players = new ArrayList<Player>();
     private final static Random randy = new Random();
 
     public void getCard(View view) {
@@ -27,10 +27,10 @@ public class PlayingActivity extends ActionBarActivity {
         image.setBackground(view.getBackground());
         //move card object
         Card card = (Card)view.getTag();
-        hand.remove(card);
+        players.get(0).removeCard(card);
 //        System.out.println("Removed: " + card);
 
-        updateCards((ArrayList<Card>)hand.clone());
+        updateCards((ArrayList<Card>) players.get(0).getHand().clone());
 
         //displayed random new card
 //        view.setBackgroundResource(cardDeck[randy.nextInt(cardDeck.length)]);
@@ -48,17 +48,18 @@ public class PlayingActivity extends ActionBarActivity {
         TextView playerName = (TextView)findViewById(R.id.PlayerName);
         playerName.setText(message);
 
-        //get the layout
-        RelativeLayout layout = (RelativeLayout)findViewById(R.id.handContainer);
+        //add the players
+        players.add(new Player(true));
 
         //create a deck and deal cards
         Deck deck = new Deck();
-
-        for(int i=0;i<10;i++){
-            hand.add(deck.draw());
+        for(Player player : players) {
+            for (int i = 0; i < 10; i++) {
+                player.addCard(deck.draw());
+            }
+            Collections.sort(player.getHand());
         }
-        Collections.sort(hand);
-        updateCards((ArrayList<Card>)hand.clone());
+        updateCards((ArrayList<Card>) players.get(0).getHand().clone());
     }
     private void updateCards(ArrayList<Card> cards){
         //get the layout

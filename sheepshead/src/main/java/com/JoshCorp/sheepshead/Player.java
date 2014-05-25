@@ -1,6 +1,7 @@
 package com.JoshCorp.sheepshead;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * Created by Josh on 5/25/14.
@@ -18,17 +19,77 @@ public class Player {
         this.points = 0;
     }
 
-    public void playCard(Card card) {
-        if (isPlayer){
-            //human player logic
-
+    public boolean playCard(ArrayList<Card> trick) {
+        if(!isPlayer){
+            //computer player logic
+            return true;
         }
         else {
-            //computer player logic
+            //only computer uses this
+            System.out.println("Error: Only computer uses this");
+            return false;
         }
     }
 
+    public boolean playCard(ArrayList<Card> trick, Card card) {
+        if (isPlayer){
+            //human player logic
+            if(isLegal(trick, card)) {
+                trick.add(card);
+                removeCard(card);
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+        else {
+            //only human specifies a card
+            System.out.println("Error: Only human uses this");
+            return false;
+        }
+    }
+
+    /**
+     * Determines if a card is legal
+     * @param card
+     * @param trick
+     * @return  true if it is
+     */
+    private boolean isLegal(ArrayList<Card> trick, Card card) {
+        //always legal if no cards played yet
+        if(!trick.isEmpty()){
+            Card led = trick.get(0);
+            //leading card is trump
+            if(led.isTrump()) {
+                //if played card is fail
+                if(!card.isTrump()) {
+                    //if they have trump then
+                    //the played card is illegal
+                    for(Card c : hand) {
+                        if(c.isTrump()) {
+                            return false;
+                        }
+                    }
+                }
+            }
+            else {
+                //card is fail and doesn't match the led card
+                if (card.getSuit() != led.getSuit() && !card.isTrump()) {
+                    //if they have a card of the correct suit
+                    //then card is illegal
+                    for (Card c : hand) {
+                        if (c.getSuit() == led.getSuit()) {
+                            return false;
+                        }
+                    }
+                }
+            }
+        }
+        return true;
+    }
     public void addCard(Card card) {
+        card.setOwner(this);
         hand.add(card);
     }
 
@@ -36,6 +97,27 @@ public class Player {
         hand.remove(card);
     }
 
+    /**
+     * Finds the lowest card in the players hand and removes and returns it
+     * @return  the lowest card
+     */
+    private Card getLowCard() {
+        Collections.sort(hand);
+        Card card = hand.get(0);
+        removeCard(card);
+        return card;
+    }
+
+    /**
+     * Finds the highest card in the players hand and removes and returns it
+     * @return  the highest card
+     */
+    private Card getHighCard()  {
+        Collections.sort(hand);
+        Card card = hand.get(hand.size()-1);
+        removeCard(card);
+        return card;
+    }
     public ArrayList<Card> getHand() {
         return hand;
     }
