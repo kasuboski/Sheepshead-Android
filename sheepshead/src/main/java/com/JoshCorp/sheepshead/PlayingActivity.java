@@ -2,62 +2,22 @@ package com.JoshCorp.sheepshead;
 
 import android.app.ActionBar;
 import android.content.Intent;
-import android.graphics.Color;
-import android.media.Image;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.view.Gravity;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.ViewManager;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 
 
 public class PlayingActivity extends ActionBarActivity {
 
-    private final static int[] cardDeck = new int[] {
-            R.drawable.clubs_10,
-            R.drawable.clubs_9,
-            R.drawable.clubs_8,
-            R.drawable.clubs_7,
-            R.drawable.clubs_a,
-            R.drawable.clubs_j,
-            R.drawable.clubs_q,
-            R.drawable.clubs_k,
-            R.drawable.diamonds_10,
-            R.drawable.diamonds_9,
-            R.drawable.diamonds_8,
-            R.drawable.diamonds_7,
-            R.drawable.diamonds_a,
-            R.drawable.diamonds_k,
-            R.drawable.diamonds_q,
-            R.drawable.diamonds_j,
-            R.drawable.hearts_10,
-            R.drawable.hearts_9,
-            R.drawable.hearts_8,
-            R.drawable.hearts_7,
-            R.drawable.hearts_a,
-            R.drawable.hearts_k,
-            R.drawable.hearts_q,
-            R.drawable.hearts_j,
-            R.drawable.spades_10,
-            R.drawable.spades_9,
-            R.drawable.spades_8,
-            R.drawable.spades_7,
-            R.drawable.spades_a,
-            R.drawable.spades_k,
-            R.drawable.spades_q,
-            R.drawable.spades_j
-    };
-
+    private ArrayList<Card> hand = new ArrayList<Card>(10);
     private final static Random randy = new Random();
 
     public void getCard(View view) {
@@ -67,9 +27,12 @@ public class PlayingActivity extends ActionBarActivity {
         image.setBackground(view.getBackground());
         //move card object
         Card card = (Card)view.getTag();
-
+        hand.remove(card);
+        System.out.println("Removed: " + card);
         //remove imageButton of card
-        ((ViewManager)view.getParent()).removeView(view);
+//        ((ViewManager)view.getParent()).removeView(view);
+
+        updateCards((ArrayList<Card>)hand.clone());
 
         //displayed random new card
 //        view.setBackgroundResource(cardDeck[randy.nextInt(cardDeck.length)]);
@@ -92,8 +55,21 @@ public class PlayingActivity extends ActionBarActivity {
 
         //create a deck and deal cards
         Deck deck = new Deck();
-        for(int i=1;i<=10;i++){
-            Card card = deck.draw();
+
+        for(int i=0;i<10;i++){
+            hand.add(deck.draw());
+        }
+        Collections.sort(hand);
+       updateCards((ArrayList<Card>)hand.clone());
+    }
+    private void updateCards(ArrayList<Card> cards){
+        //get the layout
+        RelativeLayout layout = (RelativeLayout)findViewById(R.id.handContainer);
+        layout.removeAllViewsInLayout();
+        for(int i=1;i<=cards.size();i++){
+            System.out.println(i);
+            Card card = cards.get(i-1);
+            System.out.println("Added: " + card);
             ImageButton image = new ImageButton(this);
             RelativeLayout.LayoutParams params =
                     new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,

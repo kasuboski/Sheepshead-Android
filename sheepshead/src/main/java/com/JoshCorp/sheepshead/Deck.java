@@ -30,7 +30,7 @@ public class Deck {
         cards.add(new Card("7", Card.Suit.HEARTS, 0, 1, "hearts_7"));
         cards.add(new Card("8", Card.Suit.HEARTS, 0, 2, "hearts_8"));
         cards.add(new Card("9", Card.Suit.HEARTS, 0, 3, "hearts_9"));
-        cards.add(new Card("k", Card.Suit.HEARTS, 4, 4, "hearts_k"));
+        cards.add(new Card("K", Card.Suit.HEARTS, 4, 4, "hearts_k"));
         cards.add(new Card("10", Card.Suit.HEARTS, 10, 5, "hearts_10"));
         cards.add(new Card("A", Card.Suit.HEARTS, 11, 6, "hearts_a"));
 

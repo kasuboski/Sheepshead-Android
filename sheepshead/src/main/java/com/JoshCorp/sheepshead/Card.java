@@ -3,7 +3,7 @@ package com.JoshCorp.sheepshead;
 /**
  * Created by Josh on 5/24/14.
  */
-public class Card {
+public class Card implements Comparable<Card> {
     public static enum Suit {CLUBS, SPADES, HEARTS, DIAMONDS}
 
     private Suit suit;
@@ -17,6 +17,15 @@ public class Card {
         this.points = points;
         this.rank = rank;
         this.resource = resource;
+    }
+    public int compareTo(Card other) {
+        if (this.getRank() < other.getRank()) {
+            return -1;
+        }
+        else if (this.getRank() > other.getRank()) {
+            return 1;
+        }
+        return 0;
     }
 
     public Suit getSuit() {
@@ -37,5 +46,10 @@ public class Card {
 
     public String getResource() {
         return resource;
+    }
+
+    @Override
+    public String toString(){
+        return this.getIdentifier() + " of " + this.getSuit();
     }
 }
