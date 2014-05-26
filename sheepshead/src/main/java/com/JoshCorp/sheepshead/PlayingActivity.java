@@ -51,18 +51,7 @@ public class PlayingActivity extends ActionBarActivity implements Table.UIListen
                 break;
 
         }
-        //set the card that was just played
-        //set picture
-//        ImageView image = (ImageView)findViewById(R.id.playerPlayed);
-//        image.setBackground(view.getBackground());
-        //move card object
-
-//        System.out.println("Removed: " + card);
-
         updateCards((ArrayList<Card>) table.getPlayers().get(0).getHand().clone());
-
-        //displayed random new card
-//        view.setBackgroundResource(cardDeck[randy.nextInt(cardDeck.length)]);
     }
 
     @Override
@@ -133,12 +122,27 @@ public class PlayingActivity extends ActionBarActivity implements Table.UIListen
         messageBox.setText("Your Turn");
     }
 
+    public void computerPlayed(Card card) {
+        messageBox.setText(card.getOwner().getName() + " played a card.");
+        ImageView img;
+        if(card.getOwner().getName().equals("Bill")) {
+            img = (ImageView)findViewById(R.id.leftPlayed);
+        }
+        else {
+            img = (ImageView)findViewById(R.id.rightPlayed);
+        }
+        img.setBackgroundResource(getResources().getIdentifier(card.getResource() , "drawable", getPackageName()));
+
+        table.playTurn();
+    }
+
     public void playerPick(Player player) {
         if(player.isPlayer()) {
             messageBox.setText("Select the cards to bury.");
         }
         else {
             messageBox.setText(player.getName() + " picked");
+            table.detOrder();
         }
     }
 

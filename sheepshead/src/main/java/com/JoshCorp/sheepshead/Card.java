@@ -12,6 +12,10 @@ public class Card implements Comparable<Card> {
     private String resource;
     private Player owner;
 
+    public Card(String ident) {
+        this.identifier = ident;
+    }
+
     public Card(String ident, Suit suit, int points, int rank, String resource){
         this.identifier = ident;
         this.suit = suit;
@@ -19,6 +23,7 @@ public class Card implements Comparable<Card> {
         this.rank = rank;
         this.resource = resource;
     }
+
     public int compareTo(Card other) {
         if (this.getRank() < other.getRank()) {
             return -1;

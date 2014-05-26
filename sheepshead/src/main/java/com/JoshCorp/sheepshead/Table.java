@@ -28,7 +28,7 @@ public class Table {
 
         deal();
         //determine who picks and pick
-        listener.toPick();
+        this.listener.toPick();
         System.out.println("Made it back");
     }
 
@@ -59,6 +59,10 @@ public class Table {
                 PlayingActivity.state = PlayingActivity.State.COMP;
                 //play computer turn
                 System.out.println("Computer Turn");
+                player.playCard(trick);
+
+                //computer card should be last one in trick
+                listener.computerPlayed(trick.get(trick.size()-1));
             }
         }
         else {
@@ -120,12 +124,14 @@ public class Table {
                 }
             }
         }
-
         pick(picker);
     }
     private void pick(Player player) {
         player.addCards(getBlind());
         blind.clear();
+
+        Collections.sort(player.getHand());
+
         if(player.isPlayer()) {
             listener.updateCards((ArrayList<Card>) players.get(0).getHand().clone());
         }
@@ -164,6 +170,7 @@ public class Table {
         void playerPick(Player player);
         void playerTurn();
         void illegalCard();
+        void computerPlayed(Card card);
     }
 }
 
