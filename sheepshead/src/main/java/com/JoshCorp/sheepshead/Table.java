@@ -29,31 +29,35 @@ public class Table {
         deal();
         //determine who picks and pick
         this.listener.toPick();
-        System.out.println("Made it back");
+        System.out.println("Picking");
     }
 
     public void detOrder() {
-        if(PlayingActivity.state == PlayingActivity.State.WAIT) {
-            System.out.println("Made it in");
+        //if(PlayingActivity.state == PlayingActivity.State.WAIT) {
+            System.out.println("Determining Order");
             //build order list
             order = new ArrayList<Player>(players.size());
-            order.add(lastWin);
-            for(Player player : players) {
-                if(!player.equals(lastWin)) {
-                    order.add(player);
-                }
+            //order.add(lastWin);
+            int pos = players.indexOf(lastWin) - 1;
+        //TODO: need to make it so you start selecting from lastWin
+            for(int p = 0;p < players.size();p++) {
+                pos = (pos + 1) % players.size();
+                order.add(players.get(pos));
             }
+            //Collections.reverse(order);
             playTurn();
 
-        }
+        //}
     }
 
     public void playTurn() {
+        //System.out.println(order);
         if(!order.isEmpty()) {
             Player player = order.get(0);
             order.remove(player);
             if (player.isPlayer()) {
                 PlayingActivity.state = PlayingActivity.State.PLAYER;
+                System.out.println("Player's turn");
                 listener.playerTurn();
             } else {
                 PlayingActivity.state = PlayingActivity.State.COMP;
@@ -62,12 +66,29 @@ public class Table {
                 player.playCard(trick);
 
                 //computer card should be last one in trick
-                listener.computerPlayed(trick.get(trick.size()-1));
+                listener.computerPlayed(trick.get(trick.size() - 1));
             }
         }
         else {
-            //move on to next trick
-            System.out.println("Apparently empty");
+            PlayingActivity.state = PlayingActivity.State.WAIT;
+            //if still cards to be played
+            if(!(players.get(0).getHand().isEmpty())) {
+                //move on to next trick
+                //determine winner and set lastWin
+                Card win = Player.getWinCard(trick);
+                lastWin = win.getOwner();
+                System.out.println(lastWin.getName() + " won with " + win);
+                //add the points
+                lastWin.addPts(win.getPoints());
+                trick.clear();
+
+                System.out.println("End of trick");
+                listener.endOfTrick(lastWin);
+            }
+            else {
+                //end of hand
+                System.out.println("End of Hand");
+            }
         }
     }
 
@@ -91,6 +112,7 @@ public class Table {
             listener.illegalCard();
         }
         else {
+            listener.updateCards((ArrayList<Card>)players.get(0).getHand().clone());
             playTurn();
         }
     }
@@ -137,7 +159,6 @@ public class Table {
         }
         else {
             player.bury();
-            detOrder();
         }
         PlayingActivity.state = PlayingActivity.State.PICKING;
         listener.playerPick(player);
@@ -171,6 +192,7 @@ public class Table {
         void playerTurn();
         void illegalCard();
         void computerPlayed(Card card);
+        void endOfTrick(Player winner);
     }
 }
 

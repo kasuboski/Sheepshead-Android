@@ -25,9 +25,10 @@ public class Player {
      * Controls the AI for the game
      * Most methods used inside assume the hand is sorted
      * @param trick
-     * @return
+     * @return true if called by computer player
      */
     public boolean playCard(ArrayList<Card> trick) {
+
         Collections.sort(hand);
         if(!isPlayer){
             //computer player logic
@@ -125,16 +126,18 @@ public class Player {
             return false;
         }
     }
-    private Card getWinCard(ArrayList<Card>trick) {
+    public static Card getWinCard(ArrayList<Card>trick) {
         int highRank = 0;
         Card highCard = null;
         Card led = trick.get(0);
 
         for(Card card : trick) {
             //if card is higher and follows suit
-            if(card.getRank() > highRank && ((led.isTrump() && card.isTrump()) || (led.getSuit() == card.getSuit()))) {
-                highRank = card.getRank();
-                highCard = card;
+            if(card.getRank() > highRank) {
+                if((!(led.isTrump()) && (led.getSuit() == card.getSuit() || card.isTrump())) || led.isTrump()) {
+                    highRank = card.getRank();
+                    highCard = card;
+                }
             }
         }
         return highCard;
@@ -175,8 +178,8 @@ public class Player {
                 }
             }
             else {
-                //card is fail and doesn't match the led card
-                if (card.getSuit() != led.getSuit() && !card.isTrump()) {
+                //led is fail and card suit doesn't match it
+                if (card.getSuit() != led.getSuit() || card.isTrump()) {
                     //if they have a card of the correct suit
                     //then card is illegal
                     for (Card c : hand) {

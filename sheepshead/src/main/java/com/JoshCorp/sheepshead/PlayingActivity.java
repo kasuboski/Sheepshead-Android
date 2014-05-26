@@ -21,6 +21,7 @@ public class PlayingActivity extends ActionBarActivity implements Table.UIListen
     public static enum State {DEALING, PICKING, PLAYER, COMP, WAIT};
     private final static Random randy = new Random();
     public static State state;
+    private android.os.Handler mHandler = new android.os.Handler();
 
     private TextView messageBox;
 
@@ -122,6 +123,32 @@ public class PlayingActivity extends ActionBarActivity implements Table.UIListen
         messageBox.setText("Your Turn");
     }
 
+    public void endOfTrick(final Player player) {
+        if(player.isPlayer()) {
+            messageBox.setText("You won.");
+        }
+        else {
+            messageBox.setText(player.getName() + " won.");
+        }
+        //don't erase results for 2 seconds
+        mHandler.postDelayed(new Runnable() {
+            public void run() {
+
+                //reset trick cards
+                ImageView left = (ImageView)findViewById(R.id.leftPlayed);
+                ImageView right = (ImageView)findViewById(R.id.rightPlayed);
+                ImageView bottom = (ImageView)findViewById(R.id.playerPlayed);
+
+                left.setBackgroundResource(R.drawable.b1fh);
+                right.setBackgroundResource(R.drawable.b1fh);
+                bottom.setBackgroundResource(R.drawable.b1fv);
+
+                table.detOrder();
+            }
+        }, 2000);
+
+    }
+
     public void computerPlayed(Card card) {
         messageBox.setText(card.getOwner().getName() + " played a card.");
         ImageView img;
@@ -133,7 +160,13 @@ public class PlayingActivity extends ActionBarActivity implements Table.UIListen
         }
         img.setBackgroundResource(getResources().getIdentifier(card.getResource() , "drawable", getPackageName()));
 
-        table.playTurn();
+        //don't play turn for 3 seconds
+        mHandler.postDelayed(new Runnable() {
+            public void run() {
+                table.playTurn();
+            }
+        }, 3000);
+
     }
 
     public void playerPick(Player player) {
@@ -142,7 +175,13 @@ public class PlayingActivity extends ActionBarActivity implements Table.UIListen
         }
         else {
             messageBox.setText(player.getName() + " picked");
-            table.detOrder();
+            //don't determine order for 3 seconds
+            mHandler.postDelayed(new Runnable() {
+                public void run() {
+                    table.detOrder();
+                }
+            }, 3000);
+
         }
     }
 
