@@ -37,6 +37,7 @@ public class PlayingActivity extends ActionBarActivity implements Table.UIListen
                 }
                 break;
             case PLAYER:
+
                 break;
             default:
                 break;
