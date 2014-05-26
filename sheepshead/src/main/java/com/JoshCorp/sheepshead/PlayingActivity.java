@@ -22,22 +22,30 @@ public class PlayingActivity extends ActionBarActivity implements Table.UIListen
     private final static Random randy = new Random();
     public static State state;
 
+    private TextView messageBox;
+
     public void getCard(View view) {
         switch(state) {
             case DEALING:
             case COMP:
+                System.out.println("Can't pick a card yet");
                 break;
             case PICKING:
+                System.out.println("picking");
                 if(table.getPlayers().get(0).isPicker()) {
                     Card card = (Card)view.getTag();
                     table.getPlayers().get(0).bury(card);
                     if(state == State.WAIT) {
-                        table.play();
+                        table.detOrder();
                     }
                 }
                 break;
             case PLAYER:
-
+                System.out.println("player picked a card");
+                ImageView image = (ImageView)findViewById(R.id.playerPlayed);
+                image.setBackground(view.getBackground());
+                Card card = (Card)view.getTag();
+                table.playerPlayed(card);
                 break;
             default:
                 break;
@@ -66,8 +74,8 @@ public class PlayingActivity extends ActionBarActivity implements Table.UIListen
         //set player name in textbox
         Intent intent = getIntent();
         String message = intent.getStringExtra(WelcomeScreenActivity.PLAYER_NAME);
-        TextView playerName = (TextView)findViewById(R.id.PlayerName);
-        playerName.setText(message);
+        messageBox = (TextView) findViewById(R.id.PlayerName);
+        messageBox.setText(message);
 
         //create the players
         ArrayList<Player> p = new ArrayList<Player>();
@@ -117,13 +125,15 @@ public class PlayingActivity extends ActionBarActivity implements Table.UIListen
         }
     }
 
+    public void illegalCard() {
+        messageBox.setText("The card you played was illegal.");
+    }
+
     public void playerTurn() {
-        TextView messageBox = (TextView) findViewById(R.id.PlayerName);
         messageBox.setText("Your Turn");
     }
 
     public void playerPick(Player player) {
-        TextView messageBox = (TextView) findViewById(R.id.PlayerName);
         if(player.isPlayer()) {
             messageBox.setText("Select the cards to bury.");
         }

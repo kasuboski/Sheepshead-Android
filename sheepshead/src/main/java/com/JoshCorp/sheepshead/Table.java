@@ -15,6 +15,7 @@ public class Table {
     private Deck deck;
     private Player lastWin;
     private boolean playerPicks = false;
+    private ArrayList<Player> order;
     private Random randy = new Random();
 
     public Table(UIListener listener, ArrayList<Player> players)  {
@@ -24,45 +25,48 @@ public class Table {
         blind = new ArrayList<Card>();
         trick = new ArrayList<Card>(players.size());
         this.lastWin = this.players.get(0);
-        newGame();
-    }
-    private void newGame() {
+
         deal();
         //determine who picks and pick
         listener.toPick();
-        //pick(playerPicks);
-        //wait for player to select cards to bury
-//        while(!blind.isEmpty()) {
-//            continue;
-//        }
-        //TODO: make everything more event driven
         System.out.println("Made it back");
-
-
     }
-    public void play() {
+
+    public void detOrder() {
         if(PlayingActivity.state == PlayingActivity.State.WAIT) {
             System.out.println("Made it in");
             //build order list
-            ArrayList<Player> order = new ArrayList<Player>(players.size());
+            order = new ArrayList<Player>(players.size());
             order.add(lastWin);
             for(Player player : players) {
                 if(!player.equals(lastWin)) {
                     order.add(player);
                 }
             }
-            //play through the order
-            for(Player player : order) {
-                if(player.isPlayer()) {
-                    PlayingActivity.state = PlayingActivity.State.PLAYER;
-                    listener.playerTurn();
-                }
-                else {
-                    PlayingActivity.state = PlayingActivity.State.COMP;
-                }
-            }
+            playTurn();
+
         }
     }
+
+    public void playTurn() {
+        if(!order.isEmpty()) {
+            Player player = order.get(0);
+            order.remove(player);
+            if (player.isPlayer()) {
+                PlayingActivity.state = PlayingActivity.State.PLAYER;
+                listener.playerTurn();
+            } else {
+                PlayingActivity.state = PlayingActivity.State.COMP;
+                //play computer turn
+                System.out.println("Computer Turn");
+            }
+        }
+        else {
+            //move on to next trick
+            System.out.println("Apparently empty");
+        }
+    }
+
     private void deal() {
         PlayingActivity.state = PlayingActivity.State.DEALING;
         for(Player player : players) {
@@ -75,6 +79,16 @@ public class Table {
             blind.add(deck.draw());
         }
         listener.updateCards((ArrayList<Card>)players.get(0).getHand().clone());
+    }
+
+    public void playerPlayed(Card card) {
+        if(!(players.get(0).playCard(trick, card))){
+            //card was illegal
+            listener.illegalCard();
+        }
+        else {
+            playTurn();
+        }
     }
 
     /**
@@ -117,7 +131,7 @@ public class Table {
         }
         else {
             player.bury();
-            play();
+            detOrder();
         }
         PlayingActivity.state = PlayingActivity.State.PICKING;
         listener.playerPick(player);
@@ -149,6 +163,7 @@ public class Table {
         void toPick();
         void playerPick(Player player);
         void playerTurn();
+        void illegalCard();
     }
 }
 
