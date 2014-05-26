@@ -39,7 +39,6 @@ public class Table {
             order = new ArrayList<Player>(players.size());
             //order.add(lastWin);
             int pos = players.indexOf(lastWin) - 1;
-        //TODO: need to make it so you start selecting from lastWin
             for(int p = 0;p < players.size();p++) {
                 pos = (pos + 1) % players.size();
                 order.add(players.get(pos));
@@ -74,22 +73,27 @@ public class Table {
             //if still cards to be played
             if(!(players.get(0).getHand().isEmpty())) {
                 //move on to next trick
-                //determine winner and set lastWin
-                Card win = Player.getWinCard(trick);
-                lastWin = win.getOwner();
-                System.out.println(lastWin.getName() + " won with " + win);
-                //add the points
-                lastWin.addPts(win.getPoints());
-                trick.clear();
-
-                System.out.println("End of trick");
+                endTrick();
                 listener.endOfTrick(lastWin);
             }
             else {
                 //end of hand
+                endTrick();
                 System.out.println("End of Hand");
             }
         }
+    }
+    private void endTrick() {
+        //determine winner and set lastWin
+        Card win = Player.getWinCard(trick);
+        lastWin = win.getOwner();
+        System.out.println(lastWin.getName() + " won with " + win);
+        //add the points
+        lastWin.addPts(win.getPoints());
+        trick.clear();
+
+        System.out.println("End of trick");
+
     }
 
     private void deal() {
