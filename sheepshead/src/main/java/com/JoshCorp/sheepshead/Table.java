@@ -37,16 +37,21 @@ public class Table {
 //        }
         //TODO: make everything more event driven
         System.out.println("Made it back");
+
+
+    }
+    public void play() {
         if(PlayingActivity.state == PlayingActivity.State.WAIT) {
             System.out.println("Made it in");
             //build order list
-            ArrayList<Player> order = new ArrayList<Player>();
-            order.set(0, lastWin);
+            ArrayList<Player> order = new ArrayList<Player>(players.size());
+            order.add(lastWin);
             for(Player player : players) {
                 if(!player.equals(lastWin)) {
                     order.add(player);
                 }
             }
+            //play through the order
             for(Player player : order) {
                 if(player.isPlayer()) {
                     PlayingActivity.state = PlayingActivity.State.PLAYER;
@@ -57,7 +62,6 @@ public class Table {
                 }
             }
         }
-
     }
     private void deal() {
         PlayingActivity.state = PlayingActivity.State.DEALING;
@@ -113,6 +117,7 @@ public class Table {
         }
         else {
             player.bury();
+            play();
         }
         PlayingActivity.state = PlayingActivity.State.PICKING;
         listener.playerPick(player);

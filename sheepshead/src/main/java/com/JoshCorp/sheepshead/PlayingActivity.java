@@ -31,8 +31,12 @@ public class PlayingActivity extends ActionBarActivity implements Table.UIListen
                 if(table.getPlayers().get(0).isPicker()) {
                     Card card = (Card)view.getTag();
                     table.getPlayers().get(0).bury(card);
-
+                    if(state == State.WAIT) {
+                        table.play();
+                    }
                 }
+                break;
+            case PLAYER:
                 break;
             default:
                 break;
