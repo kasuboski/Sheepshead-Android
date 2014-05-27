@@ -80,6 +80,7 @@ public class PlayingActivity extends ActionBarActivity implements Table.UIListen
         //get the layout
         RelativeLayout layout = (RelativeLayout)findViewById(R.id.handContainer);
         layout.removeAllViewsInLayout();
+        //TODO: make 0 indexed
         for(int i=1;i<=cards.size();i++){
             Card card = cards.get(i-1);
 //            System.out.println("Added: " + card);
@@ -92,7 +93,7 @@ public class PlayingActivity extends ActionBarActivity implements Table.UIListen
             if(i == 2){
                 params.addRule(RelativeLayout.ALIGN_PARENT_LEFT, RelativeLayout.TRUE);
                 params.addRule(RelativeLayout.ALIGN_PARENT_START,RelativeLayout.TRUE);
-                params.setMargins(75,0,0,0);
+                params.setMargins(dpToPx(75/2),0,0,0);
             }
             else if(i != 1){
                 params.addRule(RelativeLayout.RIGHT_OF,i-2);
@@ -107,12 +108,17 @@ public class PlayingActivity extends ActionBarActivity implements Table.UIListen
             });
             image.setAdjustViewBounds(true);
             image.setScaleType(ImageView.ScaleType.FIT_CENTER);
-            image.setMinimumWidth(150);
-            image.setMinimumHeight(200);
+            image.setMinimumWidth(dpToPx(75));
+            image.setMinimumHeight(dpToPx(100));
             image.setTag(card);
             image.setBackgroundResource(getResources().getIdentifier(card.getResource() , "drawable", getPackageName()));
             layout.addView(image);
         }
+    }
+    private int dpToPx(int dp)
+    {
+        float density = getApplicationContext().getResources().getDisplayMetrics().density;
+        return Math.round((float)dp * density);
     }
 
     public void illegalCard() {
