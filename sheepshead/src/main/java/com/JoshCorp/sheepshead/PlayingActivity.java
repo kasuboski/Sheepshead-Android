@@ -2,6 +2,7 @@ package com.JoshCorp.sheepshead;
 
 import android.app.ActionBar;
 import android.app.DialogFragment;
+import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -22,6 +23,7 @@ public class PlayingActivity extends ActionBarActivity implements Table.UIListen
     private final static Random randy = new Random();
     public static State state;
     private android.os.Handler mHandler = new android.os.Handler();
+    private boolean picked = false;
 
     private TextView messageBox;
 
@@ -56,6 +58,7 @@ public class PlayingActivity extends ActionBarActivity implements Table.UIListen
     }
 
     @Override
+    //TODO: need to handle sleeping currently a new game is started
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ActionBar actionBar = getActionBar();
@@ -137,7 +140,7 @@ public class PlayingActivity extends ActionBarActivity implements Table.UIListen
         else {
             messageBox.setText(player.getName() + " won.");
         }
-        //don't erase results for 1 seconds
+        //don't erase results for 1.5 seconds
         mHandler.postDelayed(new Runnable() {
             public void run() {
 
@@ -152,7 +155,7 @@ public class PlayingActivity extends ActionBarActivity implements Table.UIListen
 
                 table.detOrder();
             }
-        }, 1000);
+        }, 1500);
 
     }
     public void endOfHand(boolean winner) {
@@ -208,9 +211,13 @@ public class PlayingActivity extends ActionBarActivity implements Table.UIListen
     }
 
     public void toPick() {
-        // Create an instance of the dialog fragment and show it
-        DialogFragment dialog = new NoticeDialogFragment();
-        dialog.show(getFragmentManager(), "toPick");
+
+        Fragment prev = getFragmentManager().findFragmentByTag("toPick");
+        if(prev == null && !picked) {
+            // Create an instance of the dialog fragment and show it
+            DialogFragment dialog = new NoticeDialogFragment();
+            dialog.show(getFragmentManager(), "toPick");
+        }
     }
 
     // The dialog fragment receives a reference to this Activity through the
@@ -220,11 +227,13 @@ public class PlayingActivity extends ActionBarActivity implements Table.UIListen
     public void onDialogPositiveClick(DialogFragment dialog) {
         // User touched the dialog's positive button
         table.pick(true);
+        picked = true;
     }
 
     @Override
     public void onDialogNegativeClick(DialogFragment dialog) {
         // User touched the dialog's negative button
         table.pick(false);
+        picked = true;
     }
 }

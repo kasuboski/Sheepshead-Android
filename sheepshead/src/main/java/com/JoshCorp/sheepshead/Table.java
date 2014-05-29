@@ -90,7 +90,7 @@ public class Table {
                     player.reset();
                 }
                 boolean winner = false;
-                System.out.println(picker);
+                //System.out.println(picker);
                 if(picker >= 61) {
                     //picker wins
                     winner = true;
@@ -117,12 +117,12 @@ public class Table {
         System.out.println(lastWin.getName() + " won with " + win);
         //add the points
 
-        //int pointsAdded = 0;
+        int pointsAdded = 0;
         for(Card card : trick) {
-            //pointsAdded += card.getPoints();
+            pointsAdded += card.getPoints();
             lastWin.addPts(card.getPoints());
         }
-        //System.out.println(pointsAdded + " points added.");
+        System.out.println(pointsAdded + " points added.");
         trick.clear();
 
         System.out.println("End of trick");
