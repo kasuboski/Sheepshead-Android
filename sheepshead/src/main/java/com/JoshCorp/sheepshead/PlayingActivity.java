@@ -163,12 +163,12 @@ public class PlayingActivity extends ActionBarActivity implements Table.UIListen
             messageBox.setText("The partners won");
         }
 
-        //don't start a new game for 2 seconds
+        //don't start a new game for 3 seconds
         mHandler.postDelayed(new Runnable() {
             public void run() {
                 table.newGame();
             }
-        }, 2000);
+        }, 3000);
     }
 
     public void computerPlayed(Card card) {

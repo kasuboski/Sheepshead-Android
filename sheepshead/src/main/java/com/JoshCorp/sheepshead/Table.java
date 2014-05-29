@@ -82,21 +82,22 @@ public class Table {
             else {
                 //end of hand
                 endTrick();
-                Player picker = null;
+                int picker = 0;
                 for(Player player : players) {
                     if(player.isPicker()) {
-                        picker = player;
-                        player.reset();
+                        picker = player.getPoints();
                     }
+                    player.reset();
                 }
                 boolean winner = false;
-                if(picker.getPoints() >= 61) {
+                System.out.println(picker);
+                if(picker >= 61) {
                     //picker wins
                     winner = true;
-                    System.out.println("The picker won with " + picker.getPoints() + " points.");
+                    System.out.println("The picker won with " + picker + " points.");
                 }
                 else {
-                    System.out.println("The partners won.");
+                    System.out.println("The partners won with " + (120-picker) + " points.");
                 }
                 //reset values
                 trick.clear();
@@ -115,7 +116,13 @@ public class Table {
         lastWin = win.getOwner();
         System.out.println(lastWin.getName() + " won with " + win);
         //add the points
-        lastWin.addPts(win.getPoints());
+
+        //int pointsAdded = 0;
+        for(Card card : trick) {
+            //pointsAdded += card.getPoints();
+            lastWin.addPts(card.getPoints());
+        }
+        //System.out.println(pointsAdded + " points added.");
         trick.clear();
 
         System.out.println("End of trick");
