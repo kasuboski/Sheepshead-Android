@@ -26,12 +26,15 @@ public class Table {
         trick = new ArrayList<Card>(players.size());
         this.lastWin = this.players.get(0);
 
+        newGame();
+    }
+
+    public void newGame() {
         deal();
         //determine who picks and pick
         this.listener.toPick();
         System.out.println("Picking");
     }
-
     public void detOrder() {
         //if(PlayingActivity.state == PlayingActivity.State.WAIT) {
             System.out.println("Determining Order");
@@ -79,6 +82,29 @@ public class Table {
             else {
                 //end of hand
                 endTrick();
+                Player picker = null;
+                for(Player player : players) {
+                    if(player.isPicker()) {
+                        picker = player;
+                        player.reset();
+                    }
+                }
+                boolean winner = false;
+                if(picker.getPoints() >= 61) {
+                    //picker wins
+                    winner = true;
+                    System.out.println("The picker won with " + picker.getPoints() + " points.");
+                }
+                else {
+                    System.out.println("The partners won.");
+                }
+                //reset values
+                trick.clear();
+                blind.clear();
+                deck = new Deck();
+                lastWin = players.get(0);
+
+                listener.endOfHand(winner);
                 System.out.println("End of Hand");
             }
         }
@@ -197,6 +223,7 @@ public class Table {
         void illegalCard();
         void computerPlayed(Card card);
         void endOfTrick(Player winner);
+        void endOfHand(boolean winner);
     }
 }
 

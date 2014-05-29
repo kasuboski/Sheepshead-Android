@@ -183,7 +183,7 @@ public class Player {
                     //if they have a card of the correct suit
                     //then card is illegal
                     for (Card c : hand) {
-                        if (c.getSuit() == led.getSuit()) {
+                        if (c.getSuit() == led.getSuit() && !(c.isTrump())) {
                             return false;
                         }
                     }
@@ -262,6 +262,12 @@ public class Player {
 
     public int getPoints() {
         return points;
+    }
+
+    public void reset() {
+        isPicker = false;
+        hand.clear();
+        points = 0;
     }
 
     public String getName() {

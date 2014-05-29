@@ -129,6 +129,7 @@ public class PlayingActivity extends ActionBarActivity implements Table.UIListen
         messageBox.setText("Your Turn");
     }
 
+    //TODO: cards aren't reset after last hand
     public void endOfTrick(final Player player) {
         if(player.isPlayer()) {
             messageBox.setText("You won.");
@@ -136,7 +137,7 @@ public class PlayingActivity extends ActionBarActivity implements Table.UIListen
         else {
             messageBox.setText(player.getName() + " won.");
         }
-        //don't erase results for 2 seconds
+        //don't erase results for 1 seconds
         mHandler.postDelayed(new Runnable() {
             public void run() {
 
@@ -151,8 +152,23 @@ public class PlayingActivity extends ActionBarActivity implements Table.UIListen
 
                 table.detOrder();
             }
-        }, 2000);
+        }, 1000);
 
+    }
+    public void endOfHand(boolean winner) {
+        if(winner) {
+            messageBox.setText("The picker won");
+        }
+        else {
+            messageBox.setText("The partners won");
+        }
+
+        //don't start a new game for 2 seconds
+        mHandler.postDelayed(new Runnable() {
+            public void run() {
+                table.newGame();
+            }
+        }, 2000);
     }
 
     public void computerPlayed(Card card) {
@@ -166,12 +182,12 @@ public class PlayingActivity extends ActionBarActivity implements Table.UIListen
         }
         img.setBackgroundResource(getResources().getIdentifier(card.getResource() , "drawable", getPackageName()));
 
-        //don't play turn for 3 seconds
+        //don't play turn for 1 seconds
         mHandler.postDelayed(new Runnable() {
             public void run() {
                 table.playTurn();
             }
-        }, 3000);
+        }, 1000);
 
     }
 
