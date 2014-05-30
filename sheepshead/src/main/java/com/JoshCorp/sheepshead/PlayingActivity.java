@@ -23,7 +23,7 @@ public class PlayingActivity extends ActionBarActivity implements Table.UIListen
     private final static Random randy = new Random();
     public static State state;
     private android.os.Handler mHandler = new android.os.Handler();
-    private boolean picked = false;
+    public boolean picked = false;
 
     private TextView messageBox;
 
@@ -95,7 +95,7 @@ public class PlayingActivity extends ActionBarActivity implements Table.UIListen
             image.setId(i);
             if(i == 2){
                 params.addRule(RelativeLayout.ALIGN_PARENT_LEFT, RelativeLayout.TRUE);
-                params.addRule(RelativeLayout.ALIGN_PARENT_START,RelativeLayout.TRUE);
+                //params.addRule(RelativeLayout.ALIGN_PARENT_START,RelativeLayout.TRUE);
                 params.setMargins(dpToPx(75/2),0,0,0);
             }
             else if(i != 1){
@@ -211,9 +211,9 @@ public class PlayingActivity extends ActionBarActivity implements Table.UIListen
     }
 
     public void toPick() {
-
+        //TODO: currently prevents new game from being started after old one
         Fragment prev = getFragmentManager().findFragmentByTag("toPick");
-        if(prev == null && !picked) {
+        if(prev == null /*&& !picked*/) {
             // Create an instance of the dialog fragment and show it
             DialogFragment dialog = new NoticeDialogFragment();
             dialog.show(getFragmentManager(), "toPick");
