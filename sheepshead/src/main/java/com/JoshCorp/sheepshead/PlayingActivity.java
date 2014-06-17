@@ -91,7 +91,7 @@ public class PlayingActivity extends ActionBarActivity implements Table.UIListen
             RelativeLayout.LayoutParams params =
                     new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,
                             RelativeLayout.LayoutParams.WRAP_CONTENT);
-
+            //this isn't correct but seems to work for now
             image.setId(i);
             if(i == 2){
                 params.addRule(RelativeLayout.ALIGN_PARENT_LEFT, RelativeLayout.TRUE);
