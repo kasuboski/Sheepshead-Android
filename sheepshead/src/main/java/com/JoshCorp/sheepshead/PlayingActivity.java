@@ -211,7 +211,7 @@ public class PlayingActivity extends ActionBarActivity implements Table.UIListen
     }
 
     public void toPick() {
-        //TODO: currently prevents new game from being started after old one
+        //TODO: currently prevents new game from being started after old one but is commented
         Fragment prev = getFragmentManager().findFragmentByTag("toPick");
         if(prev == null /*&& !picked*/) {
             // Create an instance of the dialog fragment and show it
