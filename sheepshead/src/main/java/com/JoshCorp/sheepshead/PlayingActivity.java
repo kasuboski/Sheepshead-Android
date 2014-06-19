@@ -3,7 +3,9 @@ package com.JoshCorp.sheepshead;
 import android.app.ActionBar;
 import android.app.DialogFragment;
 import android.app.Fragment;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
@@ -64,6 +66,7 @@ public class PlayingActivity extends ActionBarActivity implements Table.UIListen
         ActionBar actionBar = getActionBar();
         actionBar.hide();
         setContentView(R.layout.activity_playing);
+
         //set player name in textbox
         Intent intent = getIntent();
         String message = intent.getStringExtra(WelcomeScreenActivity.PLAYER_NAME);
@@ -79,6 +82,25 @@ public class PlayingActivity extends ActionBarActivity implements Table.UIListen
         //create the table from the players and the game begins
         table = new Table(this, p);
     }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+
+        // store in SharedPreferences
+//        editor.putString("savedTable", );
+//        editor.commit();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+    }
+
     public void updateCards(ArrayList<Card> cards){
         //get the layout
         RelativeLayout layout = (RelativeLayout)findViewById(R.id.handContainer);

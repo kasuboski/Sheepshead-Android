@@ -25,13 +25,33 @@ public class Card implements Comparable<Card> {
     }
 
     public int compareTo(Card other) {
-        if (this.getRank() < other.getRank()) {
-            return -1;
+        //if both trump sort by rank
+        if (this.isTrump() && other.isTrump()) {
+            if (this.getRank() < other.getRank()) {
+                return -1;
+            } else if (this.getRank() > other.getRank()) {
+                return 1;
+            }
+            return 0;
         }
-        else if (this.getRank() > other.getRank()) {
+        else if (this.isTrump() && !other.isTrump()) {
             return 1;
         }
-        return 0;
+        else if (!this.isTrump() && other.isTrump()) {
+            return -1;
+        }
+        //if same suit sort by rank
+        else if (this.getSuit().ordinal() == other.getSuit().ordinal()) {
+            if (this.getRank() < other.getRank()) {
+                return -1;
+            } else if (this.getRank() > other.getRank()) {
+                return 1;
+            }
+            return 0;
+        }
+        else {
+            return this.getSuit().ordinal() - other.getSuit().ordinal();
+        }
     }
 
     public Suit getSuit() {

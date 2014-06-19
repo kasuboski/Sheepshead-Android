@@ -35,6 +35,7 @@ public class Table {
         this.listener.toPick();
         System.out.println("Picking");
     }
+
     public void detOrder() {
         //if(PlayingActivity.state == PlayingActivity.State.WAIT) {
             System.out.println("Determining Order");
@@ -161,10 +162,12 @@ public class Table {
     public void pick(boolean player) {
         Player picker = null;
         if(player) {
+            playerPicks = true;
             players.get(0).setPicker(true);
             picker = players.get(0);
         }
         else {
+            playerPicks = false;
             int numToPick = randy.nextInt((8-6) + 1) + 6;
             int total1 = 0;
             for(int p = 1; p < players.size();p++) {
